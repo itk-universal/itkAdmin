@@ -4,22 +4,22 @@ import { bindActionCreators } from 'redux'
 import * as actions from './Action'
 import Navbar from './Component/Navbar';
 //import Footer from './Component/Footer';
-import Promote from './Component/Promote';
+import SideBar from './Component/SideBar';
 
 class App extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired
-  }
+  };
   render() {
-    let layout = ''
+    let layout = '';
     const childrenWithProps = React.Children.map(this.props.children,
         (child) => cloneElement(child, {
           actions: this.props.actions,
           results: this.props.results
         })
-    )
+    );
 
-    let pathname = this.props.location.pathname
+    let pathname = this.props.location.pathname;
 
     if (pathname === '/login') {
       layout = <div className='container'>
@@ -31,30 +31,19 @@ class App extends Component {
         </div>
       )
     }
-    if (pathname === '/programmer' || pathname==='/'){
-      layout = <div className='container'>
-                {childrenWithProps}
-               </div>
-    } else if (pathname === '/topics/new'){
-      layout = <div>
-                {childrenWithProps}
-               </div>
-    } else {
-      layout = <div className='container'>
-                <div className='row margin-xs'>
-                  <div className='col-md-9 no-padding-xs'>
-                    {childrenWithProps}
-                  </div>
-                  <div className='col-md-3 no-padding-xs'>
-                    <Promote />
-                  </div>
-                </div>
-               </div>
-    }
+      layout = <div >
+          {childrenWithProps}
+      </div>;
+
     return (
-      <div>
-        <Navbar path={this.props.location.pathname}/>
-        { layout }
+      <div id="wrapper">
+          <div id="sidebar-wrapper">
+              <SideBar path={this.props.location.pathname}/>
+          </div>
+          <div id="page-content-wrapper">
+              <Navbar/>
+              { layout }
+          </div>
       </div>
     );
   }
@@ -62,10 +51,10 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(actions, dispatch)
-})
+});
 
 const mapStateToProps = state => {
-  const { postsByReddit } = state
+  const { postsByReddit } = state;
   let replies = [], topics = [], topic = {}, results = postsByReddit['results']
   if (results) {
     switch (results.type) {

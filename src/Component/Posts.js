@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import '../Stylesheets/Posts.css'
 
-export default class Posts extends Component {
+class Posts extends Component {
 	//const {fields: {name}, handleSubmit} = this.props;
 	handleSubmit(data) {
 		this.props.actions.myPost(data);
@@ -18,7 +18,7 @@ export default class Posts extends Component {
 				<div className="form-group">
 					<label className="col-md-2 control-label">数量:</label>
 					<div className="col-md-6">
-						<input className="form-control"  type="text" name="money" {...name}/>
+						<input className="form-control"  type="text"  name="money" {...name}/>
 					</div>
 				</div>
 				<div className="form-group">
@@ -32,3 +32,5 @@ export default class Posts extends Component {
 		);
 	}
 }
+
+export default Posts
